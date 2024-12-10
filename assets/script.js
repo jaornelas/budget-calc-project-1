@@ -1,4 +1,4 @@
-// Data Storage
+//Data Storage
 let income = 0;
 let expenses = [];
 let totalExpenses = 0;
