@@ -5,11 +5,22 @@
 --dollargr:#85bb65;
 
 }
+
+
 header{
-font-family: 'lexen';
-
-
+font-family: var(--font);
+color:var(--navy);
+text-shadow: 1px 1px var(--nshadow);
+position: relative;
+top: 45px;
 }
-body{
- font-family: 'dollarbill, comic sans';
+
+
+
+h2{
+font-family: var(--font);
+color: var(--navy);
+text-shadow: 1px 1px var(--nshadow);
+position: relative;
+top: 150px;
 }
