@@ -5,75 +5,73 @@ let totalExpenses = 0;
 
 // Add Income
 function addIncome(amount) {
-
-    
     income += parseFloat(amount);
     updateSummary();
-}
+};
 
-// // Add Expense
-// function addExpense(category, amount) {
-//     expenses.push({ category, amount: parseFloat(amount) });
-//     totalExpenses += parseFloat(amount);
-//     updateSummary();
-//     updatePieChart();
-// }
+// Add Expense
+function addExpense(category, amount) {
+    expenses.push({ category, amount: parseFloat(amount) });
+    totalExpenses += parseFloat(amount);
+    updateSummary();
+    updatePieChart();
+};
 
-// // Update Summary
-// function updateSummary() {
-//     const balance = income - totalExpenses;
-//     document.getElementById("totalIncome").innerText = `$${income.toFixed(2)}`;
-//     document.getElementById("totalExpenses").innerText = `$${totalExpenses.toFixed(2)}`;
-//     document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
-// }
+// Update Summary
+function updateSummary() {
+    const balance = income - totalExpenses;
+    document.getElementById("totalIncome").innerText = `$${income.toFixed(2)}`;
+    document.getElementById("totalExpenses").innerText = `$${totalExpenses.toFixed(2)}`;
+    document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
+};
 
-// // Update Pie Chart
-// function updatePieChart() {
-//     const ctx = document.getElementById("expenseChart").getContext("2d");
-//     const data = expenses.map(exp => exp.amount);
-//     const labels = expenses.map(exp => exp.category);
+// Update Pie Chart
+function updatePieChart() {
+    const ctx = document.getElementById("expenseChart").getContext("2d");
+    const data = expenses.map(exp => exp.amount);
+    const labels = expenses.map(exp => exp.category);
 
-//     new Chart(ctx, {
-//         type: "pie",
-//         data: {
-//             labels: labels,
-//             datasets: [{
-//                 data: data,
-//                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-//             }]
-//         }
-//     });
-// }
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            }]
+        }
+    });
+};
 
 let currentInput = '';
 
-    // Function to update the display
-    function updateDisplay() {
-        document.getElementById('display').value = currentInput;
-    }
+// Function to append character to the current input
+function appendToDisplay(value) {
+    currentInput += value;
+    updateDisplay();
+};
 
-    // Function to append character to the current input
-    function appendToDisplay(value) {
-        currentInput += value;
+// Function to update the display
+function updateDisplay() {
+    document.getElementById('display').value = currentInput;
+};
+
+// Function to clear the display
+function clearDisplay() {
+    currentInput = '';
+    updateDisplay();
+};
+
+// Function to calculate the result
+function calculateResult() {
+    try {
+        currentInput = eval(currentInput).toString();
+        updateDisplay();
+    } catch (error) {
+        currentInput = 'Error';
         updateDisplay();
     }
-
-    // Function to clear the display
-    function clearDisplay() {
-        currentInput = '';
-        updateDisplay();
-    }
-
-    // Function to calculate the result
-    function calculateResult() {
-        try {
-            currentInput = eval(currentInput).toString();
-            updateDisplay();
-        } catch (error) {
-            currentInput = 'Error';
-            updateDisplay();
-        }
-    }
+};
 
 
 // // Calculator Logic
