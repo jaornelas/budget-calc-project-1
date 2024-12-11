@@ -3,15 +3,20 @@
 --gold:#C89933;
 --frgreen:#134220;
 --dollargr:#85bb65;
+--font: Verdana, Geneva, Tahoma, sans-serif;
+--txtshdwbl: 2px 2px black;
+--txtshdwgr: 2px 2px #85bb65;
+--bckcolor:#ded86a;
 }
 
 header, h1{
     background-color: #134220;
     color: white;
-    font-family: 'lexen';
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     font-size: 50px;
     margin: 15px;
+    text-shadow: var(--txtshdwbl);
 }
 
 img {
@@ -22,10 +27,14 @@ img {
 h2 {
     font-size: 36px;
     display: inline-block;
+    font-family: var(--font);
+    text-shadow: var(--txtshdwgr);
+    background-color: var(--bckcolor);
 }
 
 body{
- font-family: 'dollarbill, comic sans';
+ font-family: var(--font);
+ background-color: var(--bckcolor);
 }
 
 section, h2 {
@@ -98,4 +107,15 @@ label {
 }
 .button.clear:hover {
     background-color: #c0392b;
+}
+.s-gif{
+    width: 400px;
+    height: 350px;
+position: relative;
+top: 300px;
+left: 315px;
+
+}
+.s-gif:hover{
+    transform: scale(1.1);
 }

@@ -74,8 +74,27 @@ let currentInput = '';
             updateDisplay();
         }
     }
+//still gif
+const gifContainer = document.querySelector('.s-gif')
 
+gifContainer.addEventListener('click', function (event) {
+    const element = event.target;
 
+    if(element.matches('img')){
+    const state = element.getAttribute('data-state');
+
+if(state === 'animate'){
+    element.dataset.state ='still'
+    element.setAttribute('data-state','still')
+
+    element.setAttribute('src',element.dataset.still)
+}else{
+element.dataset.state ='animate';
+element.setAttribute('src', element.dataset.animate)
+
+}
+}
+})
 // // Calculator Logic
 // let calculatorDisplay = "";
 // function addCalculatorInput(input) {
