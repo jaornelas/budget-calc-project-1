@@ -2,99 +2,128 @@
 let income = 0;
 let expenses = [];
 let totalExpenses = 0;
+const form = document.querySelector('form');
 
 // Add Income
 function addIncome(amount) {
-
-    
     income += parseFloat(amount);
     updateSummary();
+};
+
+// Add Expense
+function addExpense(category, amount) {
+    expenses.push({ category, amount: parseFloat(amount) });
+    totalExpenses += parseFloat(amount);
+    updateSummary();
+    updatePieChart();
+};
+
+// Update Summary
+function updateSummary() {
+    const balance = income - totalExpenses;
+    document.getElementById("totalIncome").innerText = `$${income.toFixed(2)}`;
+    document.getElementById("totalExpenses").innerText = `$${totalExpenses.toFixed(2)}`;
+    document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
+};
+
+// Update Pie Chart
+function updatePieChart() {
+    const ctx = document.getElementById("expenseChart").getContext("2d");
+    const data = expenses.map(exp => exp.amount);
+    const labels = expenses.map(exp => exp.category);
+
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            }]
+        }
+    });
+};
+
+
+
+//store local values when submit button is clicked
+const handleAddExpense = function(event) {
+    event.preventDefault();
+    
+    const expenseName = document.querySelector('#expense-name').value;
+    const amount = document.querySelector('#expense-amount').value;
+
+    // if (!expenseName || !amount) {    
+    //     alert("Please complete the form."); //display error
+    //     return;
+    // }
+
+    let expense = {
+        expenseName: expenseName, 
+        amount: parseFloat(amount)
+    };
+
+    localStorage.setItem('expense', JSON.stringify(expense));
+    displayExpense(expense);
 }
 
-// // Add Expense
-// function addExpense(category, amount) {
-//     expenses.push({ category, amount: parseFloat(amount) });
-//     totalExpenses += parseFloat(amount);
-//     updateSummary();
-//     updatePieChart();
-// }
+//append the locally stored values to the page
+const displayExpense = function(expense) {
+    const li = document.createElement("li");
+    const expenseDisplay = document.createElement("h2");
+    expenseDisplay.innerText = `${expense.expenseName}: $${expense.amount.toFixed(2)}`;
 
-// // Update Summary
-// function updateSummary() {
-//     const balance = income - totalExpenses;
-//     document.getElementById("totalIncome").innerText = `$${income.toFixed(2)}`;
-//     document.getElementById("totalExpenses").innerText = `$${totalExpenses.toFixed(2)}`;
-//     document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
-// }
+    li.appendChild(expenseDisplay);
+    document.getElementById("budget-form").appendChild(expenseDisplay);
+}
 
-// // Update Pie Chart
-// function updatePieChart() {
-//     const ctx = document.getElementById("expenseChart").getContext("2d");
-//     const data = expenses.map(exp => exp.amount);
-//     const labels = expenses.map(exp => exp.category);
+    document.addEventListener('DOMContentLoaded', function() {
+    const storedExpense = localStorage.getItem('expense');
 
-//     new Chart(ctx, {
-//         type: "pie",
-//         data: {
-//             labels: labels,
-//             datasets: [{
-//                 data: data,
-//                 backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-//             }]
-//         }
-//     });
-// }
+    console.log(storedExpense);
+
+    if (storedExpense) {
+        const expense = JSON.parse(storedExpense);
+        displayExpense(expense);
+    } else {
+        console.log("no data found in local storage");
+    }
+});
+//displayExpense(expense);
 
 let currentInput = '';
 
-    // Function to update the display
-    function updateDisplay() {
-        document.getElementById('display').value = currentInput;
-    }
+// Function to append character to the current input
+function appendToDisplay(value) {
+    currentInput += value;
+    updateDisplay();
+};
 
-    // Function to append character to the current input
-    function appendToDisplay(value) {
-        currentInput += value;
+// Function to update the display
+function updateDisplay() {
+    document.getElementById('display').value = currentInput;
+};
+
+// Function to clear the display
+function clearDisplay() {
+    currentInput = '';
+    updateDisplay();
+};
+
+// Function to calculate the result
+function calculateResult() {
+    try {
+        currentInput = eval(currentInput).toString();
+        updateDisplay();
+    } catch (error) {
+        currentInput = 'Error';
         updateDisplay();
     }
+};
 
-    // Function to clear the display
-    function clearDisplay() {
-        currentInput = '';
-        updateDisplay();
-    }
 
-    // Function to calculate the result
-    function calculateResult() {
-        try {
-            currentInput = eval(currentInput).toString();
-            updateDisplay();
-        } catch (error) {
-            currentInput = 'Error';
-            updateDisplay();
-        }
-    }
-//still gif
-const gifContainer = document.querySelector('.s-gif')
+form.addEventListener('submit', handleAddExpense);
 
-gifContainer.addEventListener('click', function (event) {
-    const element = event.target;
-
-    if(element.matches('img')){
-    const state = element.getAttribute('data-state');
-
-if(state === 'animate'){
-    element.dataset.state ='still'
-    element.setAttribute('data-state','still')
-
-    element.setAttribute('src',element.dataset.still)
-}else{
-element.dataset.state ='animate';
-element.setAttribute('src', element.dataset.animate)
-
-}
-}
-})
 // // Calculator Logic
 // let calculatorDisplay = "";
 // function addCalculatorInput(input) {
