@@ -2,6 +2,7 @@
 let income = 0;
 let expenses = [];
 let totalExpenses = 0;
+const form = document.querySelector('form');
 
 // Add Income
 function addIncome(amount) {
@@ -23,6 +24,24 @@ function updateSummary() {
     document.getElementById("totalIncome").innerText = `$${income.toFixed(2)}`;
     document.getElementById("totalExpenses").innerText = `$${totalExpenses.toFixed(2)}`;
     document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
+};
+
+// Update Pie Chart
+function updatePieChart() {
+    const ctx = document.getElementById("expenseChart").getContext("2d");
+    const data = expenses.map(exp => exp.amount);
+    const labels = expenses.map(exp => exp.category);
+
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            }]
+        }
+    });
 };
 
 let currentInput = '';
@@ -55,6 +74,8 @@ function calculateResult() {
     }
 };
 
+
+form.addEventListener('submit', handleAddExpense);
 
 // // Calculator Logic
 // let calculatorDisplay = "";
