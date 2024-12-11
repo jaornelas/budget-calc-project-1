@@ -1,48 +1,67 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Budget/Expense Tracker</title>
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
     <header>
-        <h1>BUDGET</h1>
+        <h1>Budget/Expense Tracker</h1>
+        <img src="/assets/images/calcBanner.jpg" alt="stock calculator image">
     </header>
     <main>
+        <section >
+            <h2>Enter your expenses</h2>
+            <form id="budget-form">
+                <label for="expense-name">Expense Name/Type:</label>
+                <input type="text" id="expense-name" name="expense-name" required>
+                
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" name="expense-amount" required>
+                
+                <button type="submit">Add Expense</button>  
+            </form>
+        <img src="assets\images\gif-freeze.png" id="gifPlaceholder" alt="gif frozen" class="clickable">   
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHdkZDg2bWRuYm8zMWVuYnY1OHNtMjFycGgycXZsYjhiMWxpYmRodSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3nFdU89fmpdnk3ew/giphy.gif" id="gifImage" style="display: none;">
+        </section>
         <section>
-            <div>
-            <h2>Monthly Expenses</h2>
-            <ul>
-                <li>HOUSING</li>
-                <li>UTILITIES</li>
-                <li>GROCERY</li>
-                <li>TRANSPORTATION COST</li>
-                <li>ENTERTAINMENT</li></ul></div>
-            <div>
-            // Cost will be inputed here 
-            </ul> </section>
-            <section>
-                <button>Weekly</button>
-                <button>Bi-Weekly</button>
-                <button>Monthly</button>
-            </section>
-            <division>
-                <h2>Pie Chart</h2>
-            </division>
-            <division>
-                <h2>Calculator</h2>
-                </division>
-                <division>
-                    <h2>Income</h2>
-                    <input type="text" id="income" placeholder="Enter your income">
-                    <h2>Expenses</h2>
-                    <input type="text" id="Expenses" placeholder="Enter your Expenses">
+            <h2>Expenses</h2>
+            <ul id="expense-list"></ul>
+        </section>
+        <section>
+            <h2>Total</h2>
+            <p id="total-amount">$0.00</p>
+        </section>
+            <div class="calculator">
+                <input type="text" id="display" class="display" disabled />
+                <div class="buttons">
+                    <button class="button clear" onclick="clearDisplay()">C</button>
+                    <button class="button operator" onclick="appendToDisplay('/')">/</button>
+                    <button class="button operator" onclick="appendToDisplay('*')">*</button>
+                    <button class="button operator" onclick="appendToDisplay('-')">-</button>
+            
+                    <button class="button" onclick="appendToDisplay('7')">7</button>
+                    <button class="button" onclick="appendToDisplay('8')">8</button>
+                    <button class="button" onclick="appendToDisplay('9')">9</button>
+                    <button class="button operator" onclick="appendToDisplay('+')">+</button>
+            
+                    <button class="button" onclick="appendToDisplay('4')">4</button>
+                    <button class="button" onclick="appendToDisplay('5')">5</button>
+                    <button class="button" onclick="appendToDisplay('6')">6</button>
+                    <button class="button equal" onclick="calculateResult()">=</button>
+            
+                    <button class="button" onclick="appendToDisplay('1')">1</button>
+                    <button class="button" onclick="appendToDisplay('2')">2</button>
+                    <button class="button" onclick="appendToDisplay('3')">3</button>
+                    <button class="button" onclick="appendToDisplay('0')">0</button>
+            
+                    <button class="button" onclick="appendToDisplay('.')">.</button>
+                </div>
+            </div>
     </main>
-         <script src= "script.js "></script> 
-    <footer>
-        <p>&copy; 2024 Budget Calculator. All rights reserved.</p>
-    </footer>
+    <script src="../assets/script.js"></script>
 </body>
 </html>
