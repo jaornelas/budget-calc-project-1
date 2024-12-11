@@ -160,3 +160,11 @@ form.addEventListener('submit', handleAddExpense);
 //     // Clear input field
 //     document.getElementById("customBudget").value = "";
 // }
+
+
+
+//gif logic
+document.getElementById('gifPlaceholder').addEventListener('click', function(){
+    document.getElementById('gifPlaceholder').style.display = 'none';
+    document.getElementById('gifImage').style.display = 'block';
+})
