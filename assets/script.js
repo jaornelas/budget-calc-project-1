@@ -4,6 +4,10 @@ let expenses = [];
 let totalExpenses = 0;
 const form = document.querySelector('form');
 
+window.onload = function() {
+    localStorage.clear();
+}
+
 // Add Income
 function addIncome(amount) {
     income += parseFloat(amount);
@@ -70,17 +74,15 @@ const handleAddExpense = function(event) {
 //append the locally stored values to the page
 const displayExpense = function(expense) {
     const li = document.createElement("li");
-    const expenseDisplay = document.createElement("h2");
+    const expenseDisplay = document.createElement("h3");
     expenseDisplay.innerText = `${expense.expenseName}: $${expense.amount.toFixed(2)}`;
 
     li.appendChild(expenseDisplay);
-    document.getElementById("budget-form").appendChild(expenseDisplay);
+    document.getElementById("expense-list").appendChild(expenseDisplay);
 }
 
     document.addEventListener('DOMContentLoaded', function() {
     const storedExpense = localStorage.getItem('expense');
-
-    console.log(storedExpense);
 
     if (storedExpense) {
         const expense = JSON.parse(storedExpense);
@@ -160,11 +162,3 @@ form.addEventListener('submit', handleAddExpense);
 //     // Clear input field
 //     document.getElementById("customBudget").value = "";
 // }
-
-
-
-//gif logic
-document.getElementById('gifPlaceholder').addEventListener('click', function(){
-    document.getElementById('gifPlaceholder').style.display = 'none';
-    document.getElementById('gifImage').style.display = 'block';
-})
