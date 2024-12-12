@@ -157,3 +157,6 @@ gap: 10px;
  background-color: #c0392b;
 }
 
+.chartBox {
+    max-width: 500px
+}
