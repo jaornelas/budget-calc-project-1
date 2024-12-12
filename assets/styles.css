@@ -41,21 +41,20 @@ h2 {
 
 
 body{
- font-family: var(--font);
- background-color: #fff4c2;
- background-image: url(images/budget-background.jpg);
- background-size: cover;
- background-position: left;
+    font-family: var(--font);
+    background-color: #fff4c2;
+    /* background-image: url(images/budget-background.jpg); */
+    background-size: cover;
+    background-position: left;
 }
 
 section, h2 {
- margin: 15px;
+    margin: 15px;
 }
 
 label {
- margin: 15px;
-
- font-size: 24px;
+    margin: 15px;
+    font-size: 24px;
 }
 
 /*
@@ -63,7 +62,7 @@ label {
 */
 
 #total-amount {
- display: inline;
+    display: inline;
 }
 
 
@@ -77,11 +76,9 @@ label {
 
    }
 
-#gifPlaceholder:hover{
+/* #gifPlaceholder:hover{
     transform: scale(1.1);
-
-
-}
+} */
 
    #gifImage{
     width: 400px;
@@ -97,12 +94,15 @@ label {
 */
 
 .calculator {
- display: inline-block;
- width: 260px;
- padding: 20px;
- background-color: #fff;
- border-radius: 8px;
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 400px;
+    right: 20px;
+    /* display: inline-block; */
+    width: 260px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .display {
@@ -159,4 +159,18 @@ gap: 10px;
 
 .chartBox {
     max-width: 500px
+<<<<<<< HEAD
 }
+=======
+}
+
+@media (min-width: 1180px;) {
+    .calculator {
+        display: block;
+    }
+
+    #expense-name {
+        display: block;
+    }
+}
+>>>>>>> 03a60362779acb861adb99706e6ec92bc56bed64

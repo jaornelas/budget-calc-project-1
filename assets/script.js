@@ -4,6 +4,10 @@ let expenses = [];
 let totalExpenses = 0;
 const form = document.querySelector('form');
 
+window.onload = function() {
+    localStorage.clear();
+}
+
 // Add Income
 function addIncome(amount) {
     income += parseFloat(amount);
@@ -44,6 +48,54 @@ function updatePieChart() {
     });
 };
 
+<<<<<<< HEAD
+=======
+
+
+//store local values when submit button is clicked
+const handleAddExpense = function(event) {
+    event.preventDefault();
+    
+    const expenseName = document.querySelector('#expense-name').value;
+    const amount = document.querySelector('#expense-amount').value;
+
+    // if (!expenseName || !amount) {    
+    //     alert("Please complete the form."); //display error
+    //     return;
+    // }
+
+    let expense = {
+        expenseName: expenseName, 
+        amount: parseFloat(amount)
+    };
+
+    localStorage.setItem('expense', JSON.stringify(expense));
+    displayExpense(expense);
+}
+
+//append the locally stored values to the page
+const displayExpense = function(expense) {
+    const li = document.createElement("li");
+    const expenseDisplay = document.createElement("h3");
+    expenseDisplay.innerText = `${expense.expenseName}: $${expense.amount.toFixed(2)}`;
+
+    li.appendChild(expenseDisplay);
+    document.getElementById("expense-list").appendChild(expenseDisplay);
+}
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const storedExpense = localStorage.getItem('expense');
+
+    if (storedExpense) {
+        const expense = JSON.parse(storedExpense);
+        displayExpense(expense);
+    } else {
+        console.log("no data found in local storage");
+    }
+});
+//displayExpense(expense);
+
+>>>>>>> 03a60362779acb861adb99706e6ec92bc56bed64
 let currentInput = '';
 
 // Function to append character to the current input
@@ -113,11 +165,3 @@ form.addEventListener('submit', handleAddExpense);
 //     // Clear input field
 //     document.getElementById("customBudget").value = "";
 // }
-
-
-
-//gif logic
-document.getElementById('gifPlaceholder').addEventListener('click', function(){
-    document.getElementById('gifPlaceholder').style.display = 'none';
-    document.getElementById('gifImage').style.display = 'block';
-})
