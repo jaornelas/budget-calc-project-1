@@ -132,7 +132,7 @@ form.addEventListener('submit', handleAddExpense);
 //     calculatorDisplay += input;
 //     document.getElementById("calculatorDisplay").innerText = calculatorDisplay;
 // }
-//
+
 // function calculateResult() {
 //     try {
 //         calculatorDisplay = eval(calculatorDisplay).toFixed(2);
