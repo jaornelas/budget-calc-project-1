@@ -17,10 +17,13 @@
             <h2>Enter your expenses</h2>
             <form id="budget-form">
                 <label for="expense-name">Expense Name/Type:</label>
-                <input type="text" id="expense-name" name="expense-name" required>
-                
+                <select type="text" id="expense-name" name="expense-name" required>
+                  <option selected>Housing</option>
+                  <option>Transportation</option>
+                  <option>Utilities</option>
+                  <option>Entertainment</option>
                 <label for="expense-amount">Amount:</label>
-                <input type="number" id="expense-amount" min=0 name="expense-amount" required>
+                <input type="number" id="expense-amount" placeholder="Enter amount here" min=0 name="expense-amount" required>
                 
                 <button type="submit">Add Expense</button>  
             </form>
