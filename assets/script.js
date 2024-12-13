@@ -48,6 +48,16 @@ function updatePieChart() {
     });
 };
 
+function updateChartData(newData) {
+    myChart.data.datasets[0].data = newData.values;
+    myChart.update();
+  }
+
+const newExpensesData = {
+    labels: ['Housing', 'Transportation', 'Utilities', 'Entertainment', 'Grocery', 'Other'],
+    values: [40.00, 50.00, 30.00, 20.00, 45.00, 25.00]
+  };
+  updateChartData(newExpensesData);
 
 
 //store local values when submit button is clicked
