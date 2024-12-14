@@ -17,6 +17,11 @@
   <main>
     <section>
       <h2>Enter your income</h2>
+      <form id="budget-form">
+        <label for="income-amount">Amount:</label>
+        <input type="number" id="income-amount" placeholder="Enter amount here" min=0 name="income-amount" required>
+        <button type="submit">Add Income</button>
+      </form>
 
       <h2>Enter your expenses</h2>
       <form id="budget-form">
@@ -42,107 +47,34 @@
       <h2>Expenses</h2>
       <ul id="expense-list"></ul>
     </section>
+
     <container id=" ">
+
       <section>
         <h2>Expense Chart</h2>
         <div class="chartBox">
-          <canvas id="myChart"></canvas>
+          <label for="category">Category:</label>
+          <select type="text" id="category" name="category" required>
+            <option selected>Housing</option>
+            <option>Transportation</option>
+            <option>Utilities</option>
+            <option>Entertainment</option>
+            <option>Grocery</option>
+            <option>Other</option>
+            <label for="amount">amount:</label>
+            <input type="number" id="amount" placeholder="Enter amount here" onchange="updateChart">
         </div>
+          <canvas id="myChart"></canvas> 
+          <div>
+            <button onchange="updateChart()">Update Chart</button> 
+
+          </div>
 
         <div class="buttonBox">
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-           //Chart setup and configuration
-           let chartData = loadFromLocalStorage();
-           setUIData(chartData);
 
-          const ctx = document.getElementById('myChart');
-          const myChart= new Chart(ctx, {
-            type: 'pie',
-            data: {
-              labels: ['Housing', 'Transportation', 'Utilities', 'Entertainment', 'Grocery', 'Other'],
-              datasets: [{
-                label: 'USD $',
-                data: [34.91, 52.36, 31.07, 23.39, 43.28, 25.48],
-                backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 253, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-
-                ],
-                borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 253, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-           //Adding user data in
-        function addData(chart, data) {
-            chart.data.datasets.forEach((dataset) => {
-                dataset.data = [...data]
-            });
-            chart.update();
-        }
-
-        //Calling input values to update chart
-        function updateChart(event) {
-            if (event) event.preventDefault();
-            chartData = getUIData();
-            saveToLocalStorage(chartData);
-            addData(myChart, chartData);
-        }
-
-        //Updating chart with values
-        document.querySelectorAll('.sleep-btn').forEach(btn => {
-            btn.addEventListener('click', updateChart);
-        });
-
-        function setUIData(data) {
-            document.querySelectorAll('.sleep input').forEach((el, i) => el.value = data[i] || '');
-        }
-
-        function getUIData() {
-            return Array.from(document.querySelectorAll('.sleep input'))
-                .map(el => Number(el.value));
-        }
-
-        //Local storage functions
-        function loadFromLocalStorage() {
-            return JSON.parse(localStorage.getItem('sdps') || '[]');
-        }
-
-        function saveToLocalStorage(chartData) {
-            localStorage.setItem('sdps', JSON.stringify(chartData));
-        }
-
-        function clearStorage() {
-            localStorage.clear();
-            setUIData(['','','','','','','']);
-            updateChart();
-        };
-
-        document.querySelector('.save-btn').addEventListener('click', updateChart);
-        document.querySelector('.clear-btn').addEventListener('click', clearStorage);
-        </script>
-      </section>
 
       <section>
         <h2>Total</h2>

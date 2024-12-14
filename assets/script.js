@@ -10,7 +10,7 @@ window.onload = function() {
 
 // Add Income
 function addIncome(amount) {
-    income += parseFloat(amount);
+    income.push({amount: parseFloat(amount) });
     updateSummary();
 };
 
@@ -19,7 +19,7 @@ function addExpense(category, amount) {
     expenses.push({ category, amount: parseFloat(amount) });
     totalExpenses += parseFloat(amount);
     updateSummary();
-    updatePieChart();
+    updateExpenseChart();
 };
 
 // Update Summary
@@ -30,23 +30,63 @@ function updateSummary() {
     document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
 };
 
-// Update Pie Chart
-function updatePieChart() {
-    const ctx = document.getElementById("expenseChart").getContext("2d");
-    const data = expenses.map(exp => exp.amount);
-    const labels = expenses.map(exp => exp.category);
+// Update Expense Chart
+const ctx = document.getElementById('myChart').getContext('2d'); 
+const myChart= new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ['Housing', 'Transportation', 'Utilities', 'Entertainment', 'Grocery', 'Other'],
+    datasets: [{
+      label: 'USD $',
+      data: [1, 1, 1, 1, 1, 1],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 253, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
 
-    new Chart(ctx, {
-        type: "pie",
-        data: {
-            labels: labels,
-            datasets: [{
-                data: data,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-            }]
-        }
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 253, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+function addData(chart) {
+    chart.data.labels.push(document.getElementById("category").value);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(document.getElementById("amount").value * 1);
     });
-};
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+ 
+
+
+  
 
 
 
