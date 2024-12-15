@@ -157,7 +157,29 @@
     }
     
     .chartBox {
-        max-width: 400px
+        max-width: 400px; /* Adjust the width as needed */
+        max-height: 300px; /* Adjust the height as needed */
+        margin: right; /* Center the chart */
+    }
+    
+    .chartBox canvas {
+        width: 100% !important; /* Ensure the canvas takes up the full width */
+        height: 100% !important; /* Ensure the canvas takes up the full height */
+    }
+    
+    @media (max-width: 1180px) {
+        .calculator {
+            display: block;
+        }
+    
+        #expense-name {
+            display: block;
+        }
+    
+        .chartBox {
+            max-width: 100%; /* Make the chart responsive */
+            max-height: 300px; /* Adjust the height for smaller screens */
+        }
     }
     
     @media (max-width: 1180px) {
