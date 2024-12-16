@@ -30,25 +30,134 @@ function updateSummary() {
     document.getElementById("balance").innerText = `$${balance.toFixed(2)}`;
 };
 
-// Update Pie Chart
-function updatePieChart() {
-    const ctx = document.getElementById("expenseChart").getContext("2d");
-    const data = expenses.map(exp => exp.amount);
-    const labels = expenses.map(exp => exp.category);
-
-    new Chart(ctx, {
-        type: "pie",
-        data: {
-            labels: labels,
-            datasets: [{
-                data: data,
-                backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-            }]
-        }
+// Update Expense Chart
+// Retrieve data from local storage
+document.addEventListener('DOMContentLoaded', () => {
+    const budgetForm = document.getElementById('budget-form');
+    const expenseList = document.getElementById('expense-list');
+    const totalAmount = document.getElementById('total-amount');
+    const updateChartButton = document.querySelector('button[onclick="updateChart()"]');
+    const ctx = document.getElementById('myChart').getContext('2d');
+  
+    let expenseData = JSON.parse(localStorage.getItem('expenses')) || {
+      Housing: 0,
+      Transportation: 0,
+      Utilities: 0,
+      Entertainment: 0,
+      Grocery: 0,
+      Other: 0,
+    };
+  
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(expenseData),
+        datasets: [
+          {
+            label: 'Expenses',
+            data: Object.values(expenseData),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+      },
     });
-};
-
-
+  
+    // Initialize list and chart
+    renderExpenseList();
+    updateChart();
+    updateTotal();
+  
+    // Handle form submission
+    budgetForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const expenseName = document.getElementById('expense-name').value;
+      const expenseAmount = parseFloat(document.getElementById('expense-amount').value);
+  
+      if (expenseAmount > 0) {
+        // Update expense data
+        expenseData[expenseName] += expenseAmount;
+        saveToLocalStorage();
+        updateTotal();
+        updateChart();
+        renderExpenseList();
+      } else {
+        alert('Please enter a valid expense amount.');
+      }
+      budgetForm.reset();
+    });
+  
+    // Add event listener for Update Chart button
+    updateChartButton.addEventListener('click', () => {
+      const category = document.getElementById('category').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+  
+      if (!isNaN(amount) && amount >= 0) {
+        expenseData[category] = amount; // Update data for the selected category
+        saveToLocalStorage();
+        updateChart(); // Refresh the chart
+        updateTotal(); // Update total
+        renderExpenseList(); // Refresh the list
+        alert('Chart updated successfully!');
+      } else {
+        alert('Please enter a valid amount.');
+      }
+    });
+  
+    // Render expense list
+    function renderExpenseList() {
+      expenseList.innerHTML = '';
+      Object.keys(expenseData).forEach((category) => {
+        if (expenseData[category] > 0) {
+          const listItem = document.createElement('li');
+          listItem.innerHTML = `
+            ${category}: $${expenseData[category].toFixed(2)} 
+          `;
+          expenseList.appendChild(listItem);
+        }
+      });
+    }
+  
+    // Update the chart
+    function updateChart() {
+      myChart.data.datasets[0].data = Object.values(expenseData);
+      myChart.update();
+    }
+  
+    // Update the total amount
+    function updateTotal() {
+      const total = Object.values(expenseData).reduce((sum, value) => sum + value, 0);
+      totalAmount.textContent = `$${total.toFixed(2)}`;
+    }
+  
+    // Save data to localStorage
+    function saveToLocalStorage() {
+      localStorage.setItem('expenses', JSON.stringify(expenseData));
+    }
+  });
 
 //store local values when submit button is clicked
 const handleAddExpense = function(event) {
