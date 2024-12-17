@@ -282,3 +282,4 @@ form.addEventListener('submit', handleAddExpense);
 //     // Clear input field
 //     document.getElementById("customBudget").value = "";
 // }
+
