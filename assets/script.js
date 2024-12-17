@@ -8,11 +8,21 @@ window.onload = function() {
     localStorage.clear();
 }
 
-// Add Income
-function addIncome(amount) {
-    income += parseFloat(amount);
-    updateSummary();
-};
+function submitName() {
+    const userName = document.getElementById('userName').value;
+
+    if (userName.trim() === "") {
+        alert("Please enter a valid name.");
+        return;
+    }
+
+    // Hide the modal and show the main content
+    document.getElementById('userModal').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+
+    // Optionally, display a welcome message using the entered name
+    alert("Welcome, " + userName + "!");
+}
 
 // Add Expense
 function addExpense(category, amount) {
