@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Please enter a valid expense amount.');
       }
       budgetForm.reset();
+
     });
   
     // Add event listener for Update Chart button
