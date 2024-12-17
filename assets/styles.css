@@ -6,6 +6,8 @@
     --txtshdwbl: 2px 2px black;
     --txtshdwgr: 2px 2px #85bb65;
     --bckcolor: #ded86a;
+
+
 }
 
 
@@ -34,7 +36,7 @@ h2 {
     font-size: 36px;
     display: inline-block;
     font-family: var(--font);
-    text-shadow: var(--txtshdwgr);
+    
 
 }
 
